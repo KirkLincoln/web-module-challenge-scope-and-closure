@@ -1,5 +1,5 @@
 // ⭐️ Example Challenge START ⭐️
-
+import async from 'async_hooks';
 /**Example Task : processFirstItem()
  * This example shows how you might go about solving the rest of the tasks
  * 
@@ -129,9 +129,14 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inningcb) {
+  return {
+    "Home": inningcb(),
+    "Away": inningcb()
+  }
 }
+
+console.log(getInningScore(inning))
 
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
@@ -175,12 +180,22 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(inningcb, inningScorecb, numOfInnings) {
+  let scoreCard = [];
+  let ledger = 0;
+  for(let i = 1; i <= numOfInnings; i++) {
+    ledger = inningScorecb(inningcb);
+    scoreCard.push(`Inning ${i}: Away ${ledger.Away} - Home ${ledger.Home}`);
+  }
+
+  //ternary expression
+  ledger.Home === ledger.Away ? 
+  scoreCard.push(`This game will require extra innings: Away ${ledger.Away} - Home ${ledger.Home}`):
+  scoreCard.push(`Final Score: Away ${ledger.Away} - Home ${ledger.Home}`)
+  return scoreCard;
 }
 
-
-
+console.log(scoreboard(inning, getInningScore, 9))
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
 function foo(){
