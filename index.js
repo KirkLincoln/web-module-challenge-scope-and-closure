@@ -183,15 +183,19 @@ Use the scoreboard function below to do the following:
 function scoreboard(inningcb, inningScorecb, numOfInnings) {
   let scoreCard = [];
   let ledger = 0;
+  let counterHome = 0;
+  let counterAway = 0;
   for(let i = 1; i <= numOfInnings; i++) {
     ledger = inningScorecb(inningcb);
-    scoreCard.push(`Inning ${i}: Away ${ledger.Away} - Home ${ledger.Home}`);
+    counterHome += ledger.Home;
+    counterAway += ledger.Away;
+    scoreCard.push(`Inning ${i}: Away ${counterHome} - Home ${counterAway}`);
   }
 
   //ternary expression
-  ledger.Home === ledger.Away ? 
-  scoreCard.push(`This game will require extra innings: Away ${ledger.Away} - Home ${ledger.Home}`):
-  scoreCard.push(`Final Score: Away ${ledger.Away} - Home ${ledger.Home}`)
+  counterHome === counterAway ? 
+  scoreCard.push(`This game will require extra innings: Away ${counterAway} - Home ${counterHome}`):
+  scoreCard.push(`Final Score: Away ${counterAway} - Home ${counterHome}`)
   return scoreCard;
 }
 
