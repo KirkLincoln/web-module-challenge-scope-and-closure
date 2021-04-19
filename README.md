@@ -43,6 +43,7 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+Closure is resolving the function's scope within it's own lexical environment.  Therefore, inner functions can use resources from the wrapper function.
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -64,8 +65,10 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+Closure is used with dansRoll where personalDice is returning a function as well a lexical environment of "Dan" as the parameter name.
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
 c. What is the lexical scope of `newRoll`? 
+newRoll's scope only exists within the anonymous inner function nested within personalDice().
 
 
 ### Task 3 - Stretch Goals

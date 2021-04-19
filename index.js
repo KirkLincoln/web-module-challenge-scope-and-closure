@@ -28,11 +28,18 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+    counter1 is a closure while counter2 is just a function.
   
   2. Which of the two uses a closure? How can you tell?
+
+    counter1 because it invokes a nested function.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
+     counter2 be better?
+
+     counter1 if you were passing the callback into a higher order function as a parameter.
+     counter2 is better when you don't care about lexical scope or you know everything is executing on the same level.
 */
 
 // counter1 code
@@ -62,10 +69,17 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+  const score = Math.floor(Math.random() * 3);
+  return score;
 }
 
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
@@ -81,9 +95,34 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inningcb, innings){
+  let counterHome = 0;
+  let counterAway = 0;
+  let updateHome = inningcb();
+  let updateAway = inningcb();
+
+  for(let i = 0; i < innings; i++) {
+    updateHome = inningcb();
+    updateAway = inningcb();
+    counterHome += updateHome;
+    counterAway += updateAway;
+  }
+
+  return {
+    "Home": counterHome,
+    "Away": counterAway
+  }
 }
+//Use Tail-end recursion to computer opposed to for loop allowing the object to be controlled by another HOO
+
+function scoreCounter(counter, update, innings) {
+  console.log(innings)
+  innings === 0 ? () => { return counter } : null
+  counter += update;
+  innings -= 1;
+}
+
+console.log(finalScore(inning, 9));
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
